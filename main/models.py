@@ -12,13 +12,27 @@ class Curso(models.Model):
     duracion = models.DurationField()
     fecha_inicial = models.DateField()
     fecha_final = models.DateField()
-    financiamiento = models.FloatField()
+    financiamiento = models.CharField(max_length=50)
+    descripcion = models.TextField()
     costo = models.FloatField()
     aula = models.CharField(max_length=20)
     cupo = models.SmallIntegerField()
+    estado = models.SmallIntegerField(max_length=6)
+
+    def get_state(self):
+        return [
+            'Planeación',
+            'En proceso de aprobación',
+            'Aprobado',
+            'No aprobado',
+            'En proceso de impartición',
+            'Terminado'
+        ][int(self.estado)]
 
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     institucion = models.CharField(max_length=40)
     cursos = models.ManyToManyField(Curso)
+
+
