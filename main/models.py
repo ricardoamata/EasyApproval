@@ -7,17 +7,17 @@ class Instructor(models.Model):
     cv = models.FileField()
 
 class Curso(models.Model):
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=40)
-    duracion = models.DurationField()
-    fecha_inicial = models.DateField()
-    fecha_final = models.DateField()
-    financiamiento = models.CharField(max_length=50)
-    descripcion = models.TextField()
-    costo = models.FloatField()
-    aula = models.CharField(max_length=20)
-    cupo = models.SmallIntegerField()
-    estado = models.SmallIntegerField(max_length=6)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True, blank=True)
+    nombre = models.CharField(max_length=40, null=True, blank=True)
+    duracion = models.DurationField(null=True, blank=True)
+    fecha_inicial = models.DateField(null=True, blank=True)
+    fecha_final = models.DateField(null=True, blank=True)
+    financiamiento = models.CharField(max_length=50, null=True, blank=True)
+    descripcion = models.TextField(null=True, blank=True)
+    costo = models.FloatField(null=True, blank=True)
+    aula = models.CharField(max_length=20, null=True, blank=True)
+    cupo = models.SmallIntegerField(null=True, blank=True)
+    estado = models.SmallIntegerField(max_length=6, null=True, blank=True)
 
     def get_state(self):
         return [
