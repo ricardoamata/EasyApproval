@@ -19,13 +19,8 @@ class Curso(models.Model):
     )
 
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True, blank=True)
-<<<<<<< HEAD
     nombre = models.CharField(max_length=40, null=True, blank=True)
     duracion = models.SmallIntegerField()
-=======
-    nombre = models.CharField(max_length=40)
-    duracion = models.DurationField(null=True, blank=True)
->>>>>>> 630e89a5241df3cb5ebc2495e80665cc75d47a40
     fecha_inicial = models.DateField(null=True, blank=True)
     fecha_final = models.DateField(null=True, blank=True)
     financiamiento = models.CharField(max_length=50, null=True, blank=True)
@@ -40,12 +35,11 @@ class Curso(models.Model):
         return self.nombre
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.s = slugify(self.nombre)
-        super(Curso, self).save(*args, **kwargs)
+        self.s = slugify(self.nombre)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('main:detail',  kwargs={'slug': self.slug})
+        return reverse('main:home')
 
 
 class Alumno(models.Model):

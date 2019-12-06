@@ -9,7 +9,7 @@ app_name = 'main'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('agregarCurso', CreacionCurso.as_view(),name='crear_curso'),
-    path('editarCurso/<int:pk>', EditarCurso.as_view(),name='editar_curso')
+    path('crear_curso', CreacionCurso.as_view(),name='crear_curso'),
+    path('editar_curso/<slug:slug>', EditarCurso.as_view(),name='editar_curso')
 
 ]

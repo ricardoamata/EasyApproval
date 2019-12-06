@@ -6,4 +6,4 @@ class CursoForm(forms.ModelForm):
 
     class Meta:
         model = Curso
-        exclude = ['Curso_id']
+        exclude = ['slug']

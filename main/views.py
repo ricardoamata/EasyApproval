@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from  django.views.generic.list import ListView
 from .forms import CursoForm
@@ -46,11 +45,3 @@ class EditarCurso(UpdateView):
     model=Curso
     template_name = 'main/cursoAgregar.html'
     form_class = CursoForm
-=======
-from django.shortcuts import render
-from django.views.generic import DetailView
-from .models import Curso
-
-def home(request):
-    return render(request, 'main/home.html')
->>>>>>> 630e89a5241df3cb5ebc2495e80665cc75d47a40
