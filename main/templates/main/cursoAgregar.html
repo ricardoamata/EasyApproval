@@ -1,0 +1,35 @@
+{% extends 'main/default.html' %}
+
+{% block content %}
+<form action= "{% url 'main:crear_curso' %}" method="post" id ="Curso" enctype="multipart/form-data">
+    
+    <fieldset>
+        {% csrf_token %}
+
+        
+        <label>Nombre del curso:</label>
+        {{form.nombre}}
+        <br><label>Nombre del instructor:</label>
+        {{form.instructor}}
+        <br><label>Duración del curso:</label>
+        {{form.duracion}}
+        <br><label>Fecha de inicio del curso:</label>
+        {{form.fecha_inicial}}
+        <br><label>Fecha de termino del curso:</label>
+        {{form.fecha_final}}
+        <br><label>Financiamiento del curso:</label>
+        {{form.financiamiento}}
+        <br><label>Descripción del curso:</label>
+        {{form.descripcion}}
+        <br> <label>Costo del curso:</label>
+        {{form.costo}}
+        <br><label>Aula del curso:</label>
+        {{form.aula}}
+        <br><label>Cupo del curso:</label>
+        {{form.cupo}}
+        <br><label>Estado del curso:</label>
+        {{form.estado}}
+    </fieldset>
+    <button type="submit"  name="Enviar">Enviar</button>
+</form>
+{% endblock %}
