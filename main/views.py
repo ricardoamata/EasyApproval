@@ -3,7 +3,7 @@ from  django.views.generic.list import ListView
 from .forms import CursoForm
 from django.views.generic import TemplateView
 from .models import Curso
-from django.views.generic import CreateView
+from django.views.generic import CreateView,UpdateView
 
 
 def home(request):
@@ -39,4 +39,9 @@ class CursoAdd(TemplateView):
 class CreacionCurso(CreateView):
     model= Curso
     template_name= 'main/cursoAgregar.html'
+    form_class = CursoForm
+
+class EditarCurso(UpdateView):
+    model=Curso
+    template_name = 'main/cursoAgregar.html'
     form_class = CursoForm
