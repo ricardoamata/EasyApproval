@@ -18,7 +18,7 @@ class Curso(models.Model):
 
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True, blank=True)
     nombre = models.CharField(max_length=40, null=True, blank=True)
-    duracion = models.DurationField(null=True, blank=True)
+    duracion = models.SmallIntegerField(null=True, blank=True)
     fecha_inicial = models.DateField(null=True, blank=True)
     fecha_final = models.DateField(null=True, blank=True)
     financiamiento = models.CharField(max_length=50, null=True, blank=True)
@@ -27,6 +27,8 @@ class Curso(models.Model):
     aula = models.CharField(max_length=20, null=True, blank=True)
     cupo = models.SmallIntegerField(null=True, blank=True)
     estado = models.SmallIntegerField(max_length=6, null=True, blank=True, choices=ESTADOS)
+
+
 
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
