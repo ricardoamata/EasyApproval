@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import slugify
 
 class Instructor(models.Model):
     nombre = models.CharField(max_length=20)
@@ -21,7 +22,7 @@ class Curso(models.Model):
     )
 
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True, blank=True)
-    nombre = models.CharField(max_length=40, null=True, blank=True)
+    nombre = models.CharField(max_length=40)
     duracion = models.DurationField(null=True, blank=True)
     fecha_inicial = models.DateField(null=True, blank=True)
     fecha_final = models.DateField(null=True, blank=True)
@@ -31,12 +32,18 @@ class Curso(models.Model):
     aula = models.CharField(max_length=20, null=True, blank=True)
     cupo = models.SmallIntegerField(null=True, blank=True)
     estado = models.SmallIntegerField(max_length=6, null=True, blank=True, choices=ESTADOS)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.nombre
 
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.s = slugify(self.nombre)
+        super(Curso, self).save(*args, **kwargs)
+
     def get_absolute_url(self):
-        return reverse('main:home')
+        return reverse('main:detail',  kwargs={'slug': self.slug})
 
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
