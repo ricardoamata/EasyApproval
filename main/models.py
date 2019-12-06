@@ -1,10 +1,14 @@
 from django.db import models
+from django.urls import reverse
 
 class Instructor(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     institucion = models.CharField(max_length=40)
     cv = models.FileField()
+
+    def __str__(self):
+        return self.nombre
 
 class Curso(models.Model):
     ESTADOS = (
@@ -28,10 +32,19 @@ class Curso(models.Model):
     cupo = models.SmallIntegerField(null=True, blank=True)
     estado = models.SmallIntegerField(max_length=6, null=True, blank=True, choices=ESTADOS)
 
+    def __str__(self):
+        return self.nombre
+
+    def get_absolute_url(self):
+        return reverse('main:home')
+
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     institucion = models.CharField(max_length=40)
     cursos = models.ManyToManyField(Curso)
+
+    def __str__(self):
+        return self.nombre
 
 
