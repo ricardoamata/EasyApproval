@@ -4,6 +4,6 @@ from   django.views.generic.list import ListView
 from main.models import Curso
 
 
-def detail(request, curso_id):
-    curso = get_object_or_404(Curso, pk=curso_id)
+def detail(request, curso_slug):
+    curso = get_object_or_404(Curso, slug=curso_slug)
     return render(request, 'main/VerInfoCurso.html', {'curso': curso})

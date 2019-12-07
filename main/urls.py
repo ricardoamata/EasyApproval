@@ -6,5 +6,5 @@ app_name = 'main'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('Curso/<int:curso_id>/', VerCurso.detail, name='detail'),
+    path('Curso/<slug:curso_slug>/', VerCurso.detail, name='detail'),
 ]
