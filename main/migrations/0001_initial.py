@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
             name='Curso',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=40)),
-                ('duracion', models.DurationField(blank=True, null=True)),
+                ('nombre', models.CharField(blank=True, max_length=40, null=True)),
+                ('duracion', models.SmallIntegerField()),
                 ('fecha_inicial', models.DateField(blank=True, null=True)),
                 ('fecha_final', models.DateField(blank=True, null=True)),
                 ('financiamiento', models.CharField(blank=True, max_length=50, null=True)),

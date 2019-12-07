@@ -8,9 +8,6 @@ class Instructor(models.Model):
     institucion = models.CharField(max_length=40)
     cv = models.FileField()
 
-    def __str__(self):
-        return self.nombre
-
 class Curso(models.Model):
     ESTADOS = (
         (0, 'Planeación'),
@@ -22,8 +19,8 @@ class Curso(models.Model):
     )
 
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True, blank=True)
-    nombre = models.CharField(max_length=40)
-    duracion = models.DurationField(null=True, blank=True)
+    nombre = models.CharField(max_length=40, null=True, blank=True)
+    duracion = models.SmallIntegerField()
     fecha_inicial = models.DateField(null=True, blank=True)
     fecha_final = models.DateField(null=True, blank=True)
     financiamiento = models.CharField(max_length=50, null=True, blank=True)
@@ -38,20 +35,17 @@ class Curso(models.Model):
         return self.nombre
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.s = slugify(self.nombre)
-        super(Curso, self).save(*args, **kwargs)
+        self.s = slugify(self.nombre)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('main:detail',  kwargs={'slug': self.slug})
+        return reverse('main:home')
+
 
 class Alumno(models.Model):
     nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     institucion = models.CharField(max_length=40)
     cursos = models.ManyToManyField(Curso)
-
-    def __str__(self):
-        return self.nombre
 
 
