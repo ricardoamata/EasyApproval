@@ -1,0 +1,31 @@
+{% extends 'main/default.html' %}
+
+{% block content %}
+    <ul class="uk-list uk-list-divider">
+        <meta charset="UTF-8">
+        <h1>{{ curso.nombre }}</h1>
+
+        <h3>Instructor: {{ curso.instructor.nombre }} {{ curso.instructor.apellido }}</h3>
+
+        <h5>Duración: {{ curso.duracion }}</h5>
+
+        <h5>Incio: {{ curso.fecha_inicial }}<br>
+            Finalliza: {{ curso.fecha_final }}</h5>
+
+        <h5>Descripción:<br> {{ curso.descripcion }}</h5>
+
+        <h5>Aula: {{ curso.aula }}<br>
+            Costo: {{ curso.costo }}</h5>
+
+        <h5>Estado: {{curso.get_estado_display }}<br>
+            Cupo: {{ curso.cupo }}</h5>
+
+        <h5>
+            {% if curso.cupo <= 0 %}
+                <button class="uk-button uk-button-default" disabled>Inscribirse al curso</button>
+            {% else %}
+                <button class="uk-button uk-button-default">Inscribirse al curso</button>
+            {% endif %}
+            </h5>
+    </ul>
+{% endblock %}
