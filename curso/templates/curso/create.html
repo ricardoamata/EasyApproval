@@ -1,0 +1,173 @@
+{% extends 'default.html' %}
+
+{% block content %}
+<form class="uk-grid-small" method="post" id ="curso_form" uk-grid data-hash-id="{% if curso %}{{ curso.hash_id }}{% endif %}" data-num-drafts="{{ request.user.profile.numero_borradores }}">
+    
+    {% csrf_token %}
+    <input type="hidden" id="owner_id" name="owner" value="{{ request.user.id }}">
+    
+    <legend class="uk-legend">Resgistro curso</legend>
+
+    <div class="uk-width-1-2">
+        {{ form.nombre.errors }}
+        <label class="uk-form-label" for="{{ form.nombre.id_for_label }}">Nombre:</label>
+        <div class="uk-form-controls">
+            {{ form.nombre }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-2">
+        {{ form.instructor.errors }}
+        <label class="uk-form-label" for="{{ form.instructor.id_for_label }}">Instructor:</label>
+        <div class="uk-form-controls">
+            {{ form.instructor }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-3">
+        {{ form.duracion.errors }}
+        <label class="uk-form-label" for="{{ form.duracion.id_for_label }}">Duracion:</label>
+        <div class="uk-form-controls">
+            {{ form.duracion }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-3">
+        {{ form.fecha_inicial.errors }}
+        <label class="uk-form-label" for="{{ form.fecha_inicial.id_for_label }}">Fecha de inicio:</label>
+        <div class="uk-form-controls">
+            {{ form.fecha_inicial }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-3">
+        {{ form.fecha_final.errors }}
+        <label class="uk-form-label" for="{{ form.fecha_final.id_for_label }}">Fecha de termino:</label>
+        <div class="uk-form-controls">
+            {{ form.fecha_final }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-2">
+        {{ form.aula.errors }}
+        <label class="uk-form-label" for="{{ form.aula.id_for_label }}">Aula de imparticion:</label>
+        <div class="uk-form-controls">
+            {{ form.aula }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-4">
+        {{ form.costo.errors }}
+        <label class="uk-form-label" for="{{ form.costo.id_for_label }}">Costo:</label>
+        <div class="uk-form-controls">
+            {{ form.costo }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-4">
+        {{ form.cupo.errors }}
+        <label class="uk-form-label" for="{{ form.cupo.id_for_label }}">Cupo:</label>
+        <div class="uk-form-controls">
+            {{ form.cupo }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-1">
+        {{ form.financiamiento.errors }}
+        <label class="uk-form-label" for="{{ form.financiamiento.id_for_label }}">Financiamiento:</label>
+        <div class="uk-form-controls">
+            {{ form.financiamiento }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-1">
+        {{ form.descripcion.errors }}
+        <label class="uk-form-label" for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+        <div class="uk-form-controls">
+            {{ form.descripcion }}
+        </div>
+    </div>
+
+
+    <div class="uk-width-1-1 uk-flex uk-flex-center uk-margin-small-top">
+        <input type="button" id="save_button" onclick="send_data()" class="uk-button uk-button-primary" value="Guardar" disabled>
+        <input type="button" class="uk-margin-small-left uk-button uk-button-danger" id="delete_button" onclick="go_to_delete()" value="Eliminar" disabled>
+    </div>
+</form>
+
+<script>
+    var saved = false
+    var new_object = true
+    var target = ""
+
+    function go_to_delete() {
+        window.location.pathname = '/curso/eliminar_borrador/' + $('#curso_form').attr('data-hash-id')
+    }
+
+    function listen_inputs() {
+        saved = false
+        $('#save_button').prop('disabled', false)
+        console.log('se hicieron cambios')
+    }
+
+    function send_data() {
+        console.log(target)
+        $('#curso_form').ajaxSubmit({
+            url: target,
+            type: 'post'
+        }).data('jqxhr').done(function (data) {
+            if(new_object) {
+                saved = true
+                $.ajax({
+                    url: '/usuario/api/add_draft',
+                    method: 'post',
+                    data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    success: function(data) {
+                        console.log('se agrego el draft')
+                    },
+                    fail: function (data) {
+                        alert('fallo esta wea')
+                    }
+                }).fail(function() {
+                    alert('no se guardo esta onda')
+                })
+                window.location.pathname = '/curso/ver_borrador/' + data['hash_id']
+            }
+            $('#save_button').prop('disabled', true)
+        }).fail(function(data) {
+            console.log(data)
+            alert('escribiste mal el formulario pendejo')
+        })
+    }
+
+    $(function () {
+        if($('#curso_form').attr('data-hash-id') == "") {
+            target = "/curso/crear_borrador"
+            $('#save_button').prop('disabled', false)
+        }
+        else {
+            target = "/curso/ver_borrador/" + $('#curso_form').attr('data-hash-id')
+            saved = true
+            new_object = false
+            $('#delete_button').prop('disabled', false)
+        }
+
+        if(new_object) {
+            $('#id_nombre').val(`Nuevo borrador ${parseInt($('#curso_form').attr('data-num-drafts'))+1}`)
+        }
+
+        $('#id_nombre').on('input', listen_inputs)
+        $('#id_instructor').on('input', listen_inputs)
+        $('#id_duracion').on('input', listen_inputs)
+        $('#id_fecha_inicial').on('input', listen_inputs)
+        $('#id_fecha_final').on('input', listen_inputs)
+        $('#id_aula').on('input', listen_inputs)
+        $('#id_costo').on('input', listen_inputs)
+        $('#id_cupo').on('input', listen_inputs)
+        $('#id_descripcion').on('input', listen_inputs)
+    })
+</script>
+
+{% endblock %}

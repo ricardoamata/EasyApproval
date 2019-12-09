@@ -3,7 +3,7 @@ from  django.views.generic.list import ListView
 from .forms import CursoForm
 from django.views.generic import TemplateView
 from .models import Curso
-from django.views.generic import CreateView,UpdateView
+from django.views.generic import CreateView, UpdateView
 
 
 def home(request):

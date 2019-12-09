@@ -1,0 +1,36 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <h2>{{ curso.nombre }}</h2>
+    <p><b>Instructor:</b> {{ curso.instructor }}</p>
+    <p><b>Duración:</b> {{ curso.duracion }} hrs</p>
+    <p><b>Incio:</b> {{ curso.fecha_inicial }}<br>
+    <p><b>Finalliza:</b> {{ curso.fecha_final }}</p>
+    <p><b>Descripción:</b></p> <p>{{ curso.descripcion }}</p>
+    <p><b>Aula:</b> {{ curso.aula }}<p>
+    <p><b>Costo:</b> {{ curso.costo }}</p>
+
+    {% if curso.inscripcion_set.count == curso.cupo %}
+        <p><b>Estado:</b>  <span class="uk-label uk-label-danger">Lleno</span></p>
+    {% else %}
+        {% if curso.estado < 2 %}
+            <p><b>Estado:</b>  <span class="uk-label uk-label-secondary">{{curso.get_estado }}</span></p>
+        {% elif curso.estado == 2 %}
+            <p><b>Estado:</b>  <span class="uk-label uk-label-success">Disponible</span></p>
+        {% elif curso.estado == 3 %}
+            <p><b>Estado:</b>  <span class="uk-label">{{curso.get_estado }}</span></p>
+        {% elif curso.estado == 4 %}
+            <p><b>Estado:</b>  <span class="uk-label uk-label-warning">{{curso.get_estado }}</span></p>
+        {% endif %}
+    {% endif %}
+
+    <p><b>Cupo:</b> {{ curso.cupo }}</p>
+        {% if curso.inscripcion_set.count == curso.cupo %}
+            <button class="uk-button uk-button-default" disabled>Inscribirse al curso</button>
+        {% else %}
+            <button class="uk-button uk-button-primary">Inscribirse al curso</button>
+        {% endif %}
+    <div class="uk-margin-medium-top">
+        <a class="uk-link-text" href="{% url 'curso:lista' %}">volver a la lista de cursos</a>
+    </div>
+{% endblock %}

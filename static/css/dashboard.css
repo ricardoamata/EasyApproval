@@ -196,3 +196,20 @@
 	height: 300px;
 	margin: 0 auto;
 }
+
+.uk-background-default {
+	background-color: white;
+}
+
+/* ========================================================================
+   Component: Label
+ ========================================================================== */
+/* Color modifiers
+========================================================================== */
+/*
+* Success
+*/
+.uk-label-secondary {
+	background-color: #666;
+	color: #fff;
+}
