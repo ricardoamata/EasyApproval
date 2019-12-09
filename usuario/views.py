@@ -32,6 +32,11 @@ def logout_view(request):
     logout(request)
     return redirect("/")
 
+def singup_view(request):
+    if request.method == 'POST':
+        pass
+    pass
+
 def add_draft(request):
     if request.method == 'POST' and request.user.is_authenticated:
         request.user.profile.numero_borradores += 1
