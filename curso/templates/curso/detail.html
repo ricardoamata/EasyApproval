@@ -31,7 +31,7 @@
             {% if not request.user.is_authenticated %}
                 <a href="{% url 'usuario:login' %}" class="uk-button uk-button-primary" disabled>Inscribirse al curso</a>
             {% elif inscrito %}
-            <form action="{% url 'curso:desinscribir' curso.slug %}" method="GET">
+                <form action="{% url 'curso:desinscribir' curso.slug %}" method="GET">
                     {% csrf_token %}
                     <input type="submit" class="uk-button uk-button-primary" value="Desinscribirse">
                 </form>

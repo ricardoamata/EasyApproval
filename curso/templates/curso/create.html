@@ -6,7 +6,7 @@
     {% csrf_token %}
     <input type="hidden" id="owner_id" name="owner" value="{{ request.user.id }}">
     
-    <legend class="uk-legend">Resgistro curso</legend>
+    <legend class="uk-legend">Registro curso</legend>
 
     <div class="uk-width-1-2">
         {{ form.nombre.errors }}
@@ -26,7 +26,7 @@
 
     <div class="uk-width-1-3">
         {{ form.duracion.errors }}
-        <label class="uk-form-label" for="{{ form.duracion.id_for_label }}">Duracion:</label>
+        <label class="uk-form-label" for="{{ form.duracion.id_for_label }}">Duración:</label>
         <div class="uk-form-controls">
             {{ form.duracion }}
         </div>
@@ -42,7 +42,7 @@
 
     <div class="uk-width-1-3">
         {{ form.fecha_final.errors }}
-        <label class="uk-form-label" for="{{ form.fecha_final.id_for_label }}">Fecha de termino:</label>
+        <label class="uk-form-label" for="{{ form.fecha_final.id_for_label }}">Fecha de término:</label>
         <div class="uk-form-controls">
             {{ form.fecha_final }}
         </div>
@@ -50,7 +50,7 @@
 
     <div class="uk-width-1-2">
         {{ form.aula.errors }}
-        <label class="uk-form-label" for="{{ form.aula.id_for_label }}">Aula de imparticion:</label>
+        <label class="uk-form-label" for="{{ form.aula.id_for_label }}">Aula de impartición:</label>
         <div class="uk-form-controls">
             {{ form.aula }}
         </div>
@@ -88,11 +88,15 @@
         </div>
     </div>
 
-
-    <div class="uk-width-1-1 uk-flex uk-flex-center uk-margin-small-top">
-        <input type="button" id="save_button" onclick="send_data()" class="uk-button uk-button-primary" value="Guardar" disabled>
-        <input type="button" class="uk-margin-small-left uk-button uk-button-danger" id="delete_button" onclick="go_to_delete()" value="Eliminar" disabled>
-    </div>
+    {% if not curso or curso.estado == 0 %}
+        <div class="uk-width-1-1 uk-flex uk-flex-center uk-margin-small-top">
+            <input type="button" id="save_button" onclick="send_data()" class="uk-button uk-button-primary" value="Guardar" disabled>
+            <input type="button" class="uk-margin-small-left uk-button uk-button-danger" id="delete_button" onclick="go_to_delete()" value="Eliminar" disabled>
+            <input type="button" class="uk-margin-small-left uk-button uk-button-default" id="approvation_request" onclick="solicitar_aprobacion()" value="Solicitar aprobación" disabled>
+        </div>
+    {% else %}
+        <span class="uk-text-large uk-text-warning">Este curso está en espera de una aprobación</span>
+    {% endif %}
 </form>
 
 <script>
@@ -102,6 +106,10 @@
 
     function go_to_delete() {
         window.location.pathname = '/curso/eliminar_borrador/' + $('#curso_form').attr('data-hash-id')
+    }
+
+    function solicitar_aprobacion() {
+        window.location.pathname = '/curso/solicitar_aprobacion/' + $('#curso_form').attr('data-hash-id')
     }
 
     function listen_inputs() {
@@ -128,17 +136,17 @@
                         console.log('se agrego el draft')
                     },
                     fail: function (data) {
-                        alert('fallo esta wea')
+                        console.log('fallo esta wea')
                     }
                 }).fail(function() {
-                    alert('no se guardo esta onda')
+                    console.log('no se guardo esta onda')
                 })
                 window.location.pathname = '/curso/ver_borrador/' + data['hash_id']
             }
             $('#save_button').prop('disabled', true)
         }).fail(function(data) {
             console.log(data)
-            alert('escribiste mal el formulario pendejo')
+            console.log('llenaste mal el formulario')
         })
     }
 
@@ -152,6 +160,7 @@
             saved = true
             new_object = false
             $('#delete_button').prop('disabled', false)
+            $('#approvation_request').prop('disabled', false)
         }
 
         if(new_object) {

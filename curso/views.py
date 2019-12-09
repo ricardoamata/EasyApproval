@@ -119,6 +119,19 @@ def inscribir(request, slug):
     
     return render(request, 'curso/inscripcion.html', context={'curso': curso})
 
+def solicitar_aprobacion(request, id):
+    curso = Curso.objects.get(hash_id=id)
+    if curso.estado > 0:
+        raise PermissionDenied("Este curso ya ha sido aprovado o ya se ha solicitado una aprobación")
+    if request.user != curso.owner and request.user.profile != curso.instructor and not request.user.is_superuser:
+        raise PermissionDenied("No tienes derechos para solicitar una aprobación para este curso")
+    
+    if request.method == 'POST':
+        curso.estado = 1
+        curso.save()
+        return redirect('/curso/ver_borrador/'+str(id))
+    return render(request, 'curso/solicitar_aprobacion.html', context={'curso': curso})
+
 def desinscribir(request, slug):
     curso = Curso.objects.get(slug=slug)
     if request.method == 'POST':
