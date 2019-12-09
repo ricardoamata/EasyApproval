@@ -11,7 +11,7 @@
                             <span class="uk-label uk-label-danger">Lleno</span>
                         {% else %}
                             {% if curso.estado == 2 %}
-                                <span class="uk-label uk-label-success">Disponible</span>
+                                <span class="uk-label uk-label-success">Abierto</span>
                             {% elif curso.estado == 3 %}
                                 <span class="uk-label">{{curso.get_estado }}</span>
                             {% elif curso.estado == 4 %}

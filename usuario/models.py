@@ -5,8 +5,9 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     TIPOS = (
-        (0, 'ALUMNO'),
-        (1, 'INSTRUCTOR'),
+        (0, 'Alumno'),
+        (1, 'Instructor'),
+        (2, 'Miembro del consejo académico'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -22,6 +23,10 @@ class Profile(models.Model):
     @property
     def apellido(self):
         return self.user.last_name
+
+    @property
+    def get_tipo(self):
+        return self.TIPOS[int(self.tipo)][1]
 
     def __str__(self):
         return str(self.nombre) + (" " + str(self.apellido) if self.apellido != None else "")

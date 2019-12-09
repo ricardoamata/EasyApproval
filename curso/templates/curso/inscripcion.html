@@ -1,0 +1,13 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <span class="uk-text-large">¿Estas seguro que quieres inscribirte al curso <b>{{ curso }}</b>?</span>
+    <form action="{% url 'curso:inscribir' curso.slug %}" method="POST" class="uk-form-stacked">
+        {% csrf_token %}
+        <div class="uk-margin">
+        <div class="uk-margin">
+            <input type="submit" value="Confirmar" id="confirm_button" class="uk-button uk-button-primary">
+            <a class="uk-button uk-button-default uk-margin-small-left" href="{% url 'curso:detalle' curso.slug %}">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

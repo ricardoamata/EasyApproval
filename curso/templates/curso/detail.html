@@ -16,7 +16,7 @@
         {% if curso.estado < 2 %}
             <p><b>Estado:</b>  <span class="uk-label uk-label-secondary">{{curso.get_estado }}</span></p>
         {% elif curso.estado == 2 %}
-            <p><b>Estado:</b>  <span class="uk-label uk-label-success">Disponible</span></p>
+            <p><b>Estado:</b>  <span class="uk-label uk-label-success">Abierto</span></p>
         {% elif curso.estado == 3 %}
             <p><b>Estado:</b>  <span class="uk-label">{{curso.get_estado }}</span></p>
         {% elif curso.estado == 4 %}
@@ -28,7 +28,19 @@
         {% if curso.inscripcion_set.count == curso.cupo %}
             <button class="uk-button uk-button-default" disabled>Inscribirse al curso</button>
         {% else %}
-            <button class="uk-button uk-button-primary">Inscribirse al curso</button>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'usuario:login' %}" class="uk-button uk-button-primary" disabled>Inscribirse al curso</a>
+            {% elif inscrito %}
+            <form action="{% url 'curso:desinscribir' curso.slug %}" method="GET">
+                    {% csrf_token %}
+                    <input type="submit" class="uk-button uk-button-primary" value="Desinscribirse">
+                </form>
+            {% else %}
+                <form action="{% url 'curso:inscribir' curso.slug %}" method="GET">
+                    {% csrf_token %}
+                    <input type="submit" class="uk-button uk-button-primary" value="Inscribirse">
+                </form>
+            {% endif %}
         {% endif %}
     <div class="uk-margin-medium-top">
         <a class="uk-link-text" href="{% url 'curso:lista' %}">volver a la lista de cursos</a>

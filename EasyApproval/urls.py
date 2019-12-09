@@ -22,3 +22,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('curso/', include('curso.urls')),
 ]
+
+handler403 = 'main.views.handler403'

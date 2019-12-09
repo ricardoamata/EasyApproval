@@ -1,13 +1,13 @@
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Curso
+from .models import Curso, Inscripcion
 from .forms import CursoForm
 
 class DraftAjaxableResponseMixin:
@@ -45,6 +45,14 @@ class CursoView(DetailView):
     template_name="curso/detail.html"
     context_object_name = 'curso'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            curso = self.get_object()
+            inscrito = Inscripcion.objects.filter(curso=curso, alumno=self.request.user).exists()
+            context['inscrito'] = inscrito
+        return context
+
 class CreacionCurso(LoginRequiredMixin,
                     UserPassesTestMixin,
                     DraftAjaxableResponseMixin,
@@ -55,6 +63,9 @@ class CreacionCurso(LoginRequiredMixin,
     template_name= 'curso/create.html'
     form_class = CursoForm
     success_url = '/'
+
+    def handle_no_permission(self):
+        raise PermissionDenied("Los alumnos no pueden crear cursos")
 
     def test_func(self):
         return (self.request.user.profile.tipo == 1 or self.request.user.is_superuser)
@@ -96,3 +107,25 @@ class DraftView(LoginRequiredMixin,
         if not self.request.user.is_superuser and self.request.user != obj.owner and self.request.user.profile != obj.instructor:
             raise PermissionDenied("No tienes permiso de acceso a este borrador de curso.")
         return True
+
+def inscribir(request, slug):
+    curso = Curso.objects.get(slug=slug)
+    if request.method == 'POST':
+        if curso.inscripcion_set.filter(alumno=request.user).exists():
+            return render(request, 'main/error_handler.html', context={'exception': 'Ya estas inscrito inscrito a este curso'})
+        inscripcion = Inscripcion(curso=curso, alumno=request.user)
+        inscripcion.save()
+        return redirect('/curso/ver_curso/'+slug)
+    
+    return render(request, 'curso/inscripcion.html', context={'curso': curso})
+
+def desinscribir(request, slug):
+    curso = Curso.objects.get(slug=slug)
+    if request.method == 'POST':
+        if not curso.inscripcion_set.filter(alumno=request.user).exists():
+            return render(request, 'main/error_handler.html', context={'exception': 'No estas inscrito a este curso'})
+        inscripcion = curso.inscripcion_set.get(alumno=request.user)
+        inscripcion.delete()
+        return redirect('/curso/ver_curso/'+slug)
+    
+    return render(request, 'curso/desinscribir.html', context={'curso': curso})

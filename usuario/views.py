@@ -27,8 +27,10 @@ class LoginView(TemplateView):
 
     
 def logout_view(request):
+    if not request.user.is_authenticated:
+        return redirect("/")
     logout(request)
-    return redirect('/')
+    return redirect("/")
 
 def add_draft(request):
     if request.method == 'POST' and request.user.is_authenticated:
@@ -45,4 +47,4 @@ def remove_draft(request):
         request.user.profile.numero_borradores -= 1
         request.user.save()
         return JsonResponse({})
-    return JsonResponse({}, status=403)
+    return redirect('/')

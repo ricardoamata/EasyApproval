@@ -1,18 +1,18 @@
 {% extends 'default.html' %}
 
 {% block content %}
-    <span class="uk-text-large">¿Esta seguro de quiere eliminar el borrador de curso <b>{{ curso }}</b>?</span>
-    <form action="{% url 'curso:eliminar' curso.hash_id %}" method="POST" class="uk-form-stacked">
+    <span class="uk-text-large">¿Estas seguro que quieres desinscribirte del curso <b>{{ curso }}</b>?</span>
+    <form action="{% url 'curso:desinscribir' curso.slug %}" method="POST" class="uk-form-stacked">
         {% csrf_token %}
         <div class="uk-margin">
-            <label for="confirmacion" class="uk-form-label">Escriba <b>accepto</b> para confirmar:</label>
+            <label for="confirmacion" class="uk-form-label">Escriba <b>acepto</b> para confirmar:</label>
             <div class="uk-width-1-2">
                 <input class="uk-input" type="text" name="confirmacion" id="confirmacion" oninput="read_confirmation()">
             </div>
         </div>
         <div class="uk-margin">
             <input type="submit" value="Confirmar" id="confirm_button" class="uk-button uk-button-disabled" disabled>
-            <a class="uk-button uk-button-default uk-margin-small-left" href="{% url 'curso:editar' curso.hash_id %}">Cancelar</a>
+            <a class="uk-button uk-button-default uk-margin-small-left" href="{% url 'curso:detalle' curso.slug %}">Cancelar</a>
         </div>
     </form>
 
