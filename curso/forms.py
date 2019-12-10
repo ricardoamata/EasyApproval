@@ -4,13 +4,14 @@ from .models import Curso
 
 class CursoForm(forms.ModelForm):
     fecha_inicial = forms.DateField(
-        widget = forms.DateInput(format='%d/%m/%Y', attrs={'class': 'uk-input'}),
-        input_formats = ('%d/%m/%Y', )
+        widget = forms.DateInput(format='%Y-%m-%d', attrs={'class': 'uk-input','type':"date"}),
+        input_formats = ('%Y-%m-%d', )
     )
-
+ #<input class="uk-input" id="form-s-date" type="date" placeholder="1970-01-01">
+  #<input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
     fecha_final = forms.DateField(
-        widget = forms.DateInput(format='%d/%m/%Y', attrs={'class': 'uk-input'}),
-        input_formats = ('%d/%m/%Y', )
+        widget = forms.DateInput(format='%Y-%m-%d', attrs={'class': 'uk-input','type':"date"}),
+        input_formats = ('%Y-%m-%d', )
     )
 
     def __init__(self, *args, **kwargs):

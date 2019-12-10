@@ -49,7 +49,7 @@ class Curso(models.Model):
     experiencia = models.TextField(null=True, blank=True) 
     hab_alumnos = models.TextField(null=True, blank=True) 
     idioma =  models.CharField(max_length=50,null=True,blank=True)
-    infraestructura= models.CharField(max_length=80,null=True,blank=True)
+    infraestructura= models.CharField(max_length=200,null=True,blank=True)
     cargo_instructor = models.CharField(max_length=50,null=True,blank=True)
     dependencia = models.CharField(max_length=50,null=True,blank=True)
     telefono = models.CharField(max_length = 15,null=True,blank=True)

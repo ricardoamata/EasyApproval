@@ -179,6 +179,7 @@
         <label class="uk-form-label" for="{{ form.fecha_inicial.id_for_label }}">Fecha de inicio:</label>
         <div class="uk-form-controls">
             {{ form.fecha_inicial }}
+           
         </div>
     </div>
 
@@ -268,7 +269,7 @@
     }
 
     function send_data() {
-        console.log(target)
+        console.log($('#id_fecha_inicial').val())
         $('#curso_form').ajaxSubmit({
             url: target,
             type: 'post'
@@ -294,7 +295,6 @@
             }
             $('#save_button').prop('disabled', true)
         }).fail(function(data) {
-            console.log(data)
             console.log('llenaste mal el formulario')
         })
     }
@@ -323,8 +323,29 @@
         $('#id_fecha_final').on('input', listen_inputs)
         $('#id_aula').on('input', listen_inputs)
         $('#id_costo').on('input', listen_inputs)
-        $('#id_cupo').on('input', listen_inputs)
         $('#id_descripcion').on('input', listen_inputs)
+        $('#id_cupo_min').on('input', listen_inputs)
+        $('#id_cupo_max').on('input', listen_inputs)
+        $('#id_estado').on('input', listen_inputs)
+        $('#id_division').on('input', listen_inputs)
+        $('#id_departamento').on('input', listen_inputs)
+        $('#id_caracter').on('input', listen_inputs)
+        $('#id_obj_general').on('input', listen_inputs)
+        $('#id_obj_particular').on('input', listen_inputs)
+        $('#id_contenido_sintetico').on('input', listen_inputs)
+        $('#id_estilo_enseñanza').on('input', listen_inputs)
+        $('#id_req_evaluacion').on('input', listen_inputs)
+        $('#id_bibliografia').on('input', listen_inputs)
+        $('#id_perfil_academico').on('input', listen_inputs)
+        $('#id_utilidad_programa').on('input', listen_inputs)
+        $('#id_experiencia').on('input', listen_inputs)
+        $('#id_hab_alumnos').on('input', listen_inputs)
+        $('#id_idioma').on('input', listen_inputs)
+        $('#id_infraestructura').on('input', listen_inputs)
+        $('#id_cargo_instructor').on('input', listen_inputs)
+        $('#id_dependencia').on('input', listen_inputs)
+        $('#id_telefono').on('input', listen_inputs)
+        $('#id_correo').on('input', listen_inputs)
     })
 </script>
 
