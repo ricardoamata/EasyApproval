@@ -6,11 +6,17 @@
     <p><b>Duración:</b> {{ curso.duracion }} hrs</p>
     <p><b>Incio:</b> {{ curso.fecha_inicial }}<br>
     <p><b>Finalliza:</b> {{ curso.fecha_final }}</p>
+    <p><b>Caracter:</b></p> <p>{{ curso.caracter }}</p>
     <p><b>Descripción:</b></p> <p>{{ curso.descripcion }}</p>
+    <p><b>Objetivo general:</b></p> <p>{{ curso.obj_general }}</p>
+    <p><b>Contenido Sintetico:</b></p> <p>{{ curso.contenido_sintetico }}</p>
+    <p><b>Antescedentes o habilidades necesarias de los alumnos:</b></p> <p>{{ curso.hab_alumnos }}</p>
+    <p><b>Requisitos de idioma:</b></p> <p>{{ curso.idioma }}</p>
+    <p><b>Bibliografia:</b></p> <p>{{ curso.contenido_sintetico }}</p>
     <p><b>Aula:</b> {{ curso.aula }}<p>
     <p><b>Costo:</b> {{ curso.costo }}</p>
 
-    {% if curso.inscripcion_set.count == curso.cupo %}
+    {% if curso.inscripcion_set.count == curso.cupo_max %}
         <p><b>Estado:</b>  <span class="uk-label uk-label-danger">Lleno</span></p>
     {% else %}
         {% if curso.estado < 2 %}
@@ -23,8 +29,8 @@
             <p><b>Estado:</b>  <span class="uk-label uk-label-warning">{{curso.get_estado }}</span></p>
         {% endif %}
     {% endif %}
-
-    <p><b>Cupo:</b> {{ curso.cupo }}</p>
+        
+    <p><b>Cupos disponibles:</b> {{ cupos_disponibles}}</p>
         {% if curso.inscripcion_set.count == curso.cupo %}
             <button class="uk-button uk-button-default" disabled>Inscribirse al curso</button>
         {% else %}

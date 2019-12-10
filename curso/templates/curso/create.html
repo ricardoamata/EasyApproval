@@ -10,13 +10,102 @@
 
     <div class="uk-width-1-2">
         {{ form.nombre.errors }}
-        <label class="uk-form-label" for="{{ form.nombre.id_for_label }}">Nombre:</label>
+        <label class="uk-form-label " for="{{ form.nombre.id_for_label }}">Nombre del curso:</label>
         <div class="uk-form-controls">
             {{ form.nombre }}
         </div>
     </div>
 
     <div class="uk-width-1-2">
+        {{ form.division.errors }}
+        <label class="uk-form-label" for="{{ form.division.id_for_label }}">Division:</label>
+        <div class="uk-form-controls">
+            {{ form.division }}
+        </div>
+    </div>
+    
+    <div class="uk-width-1-2">
+        {{ form.departamento.errors }}
+        <label class="uk-form-label" for="{{ form.departamento.id_for_label }}">Departamento:</label>
+        <div class="uk-form-controls">
+            {{ form.departamento }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        {{ form.caracter.errors }}
+        <label class="uk-form-label" for="{{ form.caracter.id_for_label }}">Caracter:</label>
+        <div class="uk-form-controls">
+            {{ form.caracter }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-2">
+        {{ form.obj_general.errors }}
+        <label class="uk-form-label" for="{{ form.obj_general.id_for_label }}">Objetivo general:</label>
+        <div class="uk-form-controls">
+            {{ form.obj_general }}
+        </div>
+    </div>
+
+    <div class="uk-width-1-2">
+        {{ form.obj_particular.errors }}
+        <label class="uk-form-label" for="{{ form.obj_particular.id_for_label }}">Objetivos Especificos:</label>
+        <div class="uk-form-controls">
+            {{ form.obj_particular }}
+        </div>
+    </div>
+  
+    <div class="uk-width-1-2">
+        {{ form.contenido_sintetico.errors }}
+        <label class="uk-form-label" for="{{ form.contenido_sintetico.id_for_label }}">Contenido Sintetico:</label>
+        <div class="uk-form-controls">
+            {{ form.contenido_sintetico }}
+        </div>
+    </div>
+   
+    <div class="uk-width-1-2">
+        {{ form.estilo_enseñanza.errors }}
+        <label class="uk-form-label" for="{{ form.estilo_enseñanza.id_for_label }}">Forma de conducción del proceso enseñanza-aprendizaje:</label>
+        <div class="uk-form-controls">
+            {{ form.estilo_enseñanza }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        {{ form.req_evaluacion.errors }}
+        <label class="uk-form-label" for="{{ form.req_evaluacion.id_for_label }}">Requisitos de evaluación:</label>
+        <div class="uk-form-controls">
+            {{ form.req_evaluacion }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        {{ form.bibliografia.errors }}
+        <label class="uk-form-label" for="{{ form.bibliografia.id_for_label }}">Bibliografia:</label>
+        <div class="uk-form-controls">
+            {{ form.bibliografia }}
+        </div>
+    </div>
+    <div class="uk-width-1-1">
+        {{ form.perfil_academico.errors }}
+        <label class="uk-form-label" for="{{ form.perfil_academico.id_for_label }}">Perfil académico deseable del responsable de la materia:</label>
+        <div class="uk-form-controls">
+            {{ form.perfil_academico }}
+        </div>
+    </div>
+    <div class="uk-width-1-1">
+        {{ form.financiamiento.errors }}
+        <label class="uk-form-label" for="{{ form.financiamiento.id_for_label }}">Capacidad de autofinanciamiento:</label>
+        <div class="uk-form-controls">
+            {{ form.financiamiento }}
+        </div>
+    </div>
+    <div class="uk-width-1-1">
+        {{ form.utilidad_programa.errors }}
+        <label class="uk-form-label" for="{{ form.utilidad_programa.id_for_label }}">Utilidad y oportunidad en función del programa:</label>
+        <div class="uk-form-controls">
+            {{ form.utilidad_programa }}
+        </div>
+    </div>
+    <div class="uk-width-1-1">
         {{ form.instructor.errors }}
         <label class="uk-form-label" for="{{ form.instructor.id_for_label }}">Instructor:</label>
         <div class="uk-form-controls">
@@ -24,21 +113,76 @@
         </div>
     </div>
 
+    <div class="uk-width-1-2">
+        {{ form.experiencia.errors }}
+        <label class="uk-form-label" for="{{ form.experiencia.id_for_label }}">Experiencia, calidad profesional y académica:</label>
+        <div class="uk-form-controls">
+            {{ form.experiencia }}
+        </div>
+    </div>
+   
+    <div class="uk-width-1-2">
+        {{ form.hab_alumnos.errors }}
+        <label class="uk-form-label" for="{{ form.hab_alumnos.id_for_label }}">Antescedentes o habilidades necesarias de los alumnos:</label>
+        <div class="uk-form-controls">
+            {{ form.hab_alumnos }}
+        </div>
+    </div>
+    
     <div class="uk-width-1-3">
         {{ form.duracion.errors }}
-        <label class="uk-form-label" for="{{ form.duracion.id_for_label }}">Duración:</label>
+        <label class="uk-form-label" for="{{ form.duracion.id_for_label }}">Duración (Horas):</label>
         <div class="uk-form-controls">
             {{ form.duracion }}
         </div>
     </div>
 
     <div class="uk-width-1-3">
+        {{ form.cupo_min.errors }}
+        <label class="uk-form-label" for="{{ form.cupo_min.id_for_label }}">Cupo Mínimo:</label>
+        <div class="uk-form-controls">
+            {{ form.cupo_min }}
+        </div>
+    </div>
+    <div class="uk-width-1-3">
+        {{ form.cupo_max.errors }}
+        <label class="uk-form-label" for="{{ form.cupo_max.id_for_label }}">Cupo Máximo:</label>
+        <div class="uk-form-controls">
+            {{ form.cupo_max }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        {{ form.idioma.errors }}
+        <label class="uk-form-label" for="{{ form.idioma.id_for_label }}">Requisitos de idioma:</label>
+        <div class="uk-form-controls">
+            {{ form.idioma }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        {{ form.costo.errors }}
+        <label class="uk-form-label" for="{{ form.costo.id_for_label }}">Costo (MXN):</label>
+        <div class="uk-form-controls">
+            {{ form.costo }}
+        </div> 
+    </div>
+    
+    <div class="uk-width-1-3">
+        {{ form.aula.errors }}
+        <label class="uk-form-label" for="{{ form.aula.id_for_label }}">Aula:</label>
+        <div class="uk-form-controls">
+            {{ form.aula }}
+        </div> 
+    </div>
+    
+    <div class="uk-width-1-3">
         {{ form.fecha_inicial.errors }}
         <label class="uk-form-label" for="{{ form.fecha_inicial.id_for_label }}">Fecha de inicio:</label>
         <div class="uk-form-controls">
             {{ form.fecha_inicial }}
+           
         </div>
     </div>
+
 
     <div class="uk-width-1-3">
         {{ form.fecha_final.errors }}
@@ -48,44 +192,50 @@
         </div>
     </div>
 
-    <div class="uk-width-1-2">
-        {{ form.aula.errors }}
-        <label class="uk-form-label" for="{{ form.aula.id_for_label }}">Aula de impartición:</label>
-        <div class="uk-form-controls">
-            {{ form.aula }}
-        </div>
-    </div>
-
-    <div class="uk-width-1-4">
-        {{ form.costo.errors }}
-        <label class="uk-form-label" for="{{ form.costo.id_for_label }}">Costo:</label>
-        <div class="uk-form-controls">
-            {{ form.costo }}
-        </div>
-    </div>
-
-    <div class="uk-width-1-4">
-        {{ form.cupo.errors }}
-        <label class="uk-form-label" for="{{ form.cupo.id_for_label }}">Cupo:</label>
-        <div class="uk-form-controls">
-            {{ form.cupo }}
-        </div>
-    </div>
-
+    
     <div class="uk-width-1-1">
-        {{ form.financiamiento.errors }}
-        <label class="uk-form-label" for="{{ form.financiamiento.id_for_label }}">Financiamiento:</label>
+        {{ form.infraestructura.errors }}
+        <label class="uk-form-label" for="{{ form.infraestructura.id_for_label }}">Infraestructura necesaria para ofrecer el curso:</label>
         <div class="uk-form-controls">
-            {{ form.financiamiento }}
+            {{ form.infraestructura }}
         </div>
     </div>
+    <div class="uk-width-1-2">
+        {{ form.cargo_instructor.errors }}
+        <label class="uk-form-label" for="{{ form.cargo_instructor.id_for_label }}">Cargo del instructor:</label>
+        <div class="uk-form-controls">
+            {{ form.cargo_instructor }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        {{ form.dependencia.errors }}
+        <label class="uk-form-label" for="{{ form.dependencia.id_for_label }}">Dependencia:</label>
+        <div class="uk-form-controls">
+            {{ form.dependencia }}
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+            {{ form.telefono.errors }}
+            <label class="uk-form-label" for="{{ form.telefono.id_for_label }}">Telefono:</label>
+            <div class="uk-form-controls">
+                {{ form.telefono }}
+            </div>
+    </div>
+    <div class="uk-width-1-2">
+            {{ form.correo.errors }}
+            <label class="uk-form-label" for="{{ form.correo.id_for_label }}">Correo:</label>
+            <div class="uk-form-controls">
+                {{ form.correo }}
+            </div>
+    </div>
 
+    <!-- Pendiente quitar o dejar !!!!!-->
     <div class="uk-width-1-1">
         {{ form.descripcion.errors }}
         <label class="uk-form-label" for="{{ form.descripcion.id_for_label }}">Descripción:</label>
         <div class="uk-form-controls">
             {{ form.descripcion }}
-        </div>
+        </div>  
     </div>
 
     {% if not curso or curso.estado == 0 %}
@@ -119,7 +269,7 @@
     }
 
     function send_data() {
-        console.log(target)
+        console.log($('#id_fecha_inicial').val())
         $('#curso_form').ajaxSubmit({
             url: target,
             type: 'post'
@@ -145,7 +295,6 @@
             }
             $('#save_button').prop('disabled', true)
         }).fail(function(data) {
-            console.log(data)
             console.log('llenaste mal el formulario')
         })
     }
@@ -174,8 +323,29 @@
         $('#id_fecha_final').on('input', listen_inputs)
         $('#id_aula').on('input', listen_inputs)
         $('#id_costo').on('input', listen_inputs)
-        $('#id_cupo').on('input', listen_inputs)
         $('#id_descripcion').on('input', listen_inputs)
+        $('#id_cupo_min').on('input', listen_inputs)
+        $('#id_cupo_max').on('input', listen_inputs)
+        $('#id_estado').on('input', listen_inputs)
+        $('#id_division').on('input', listen_inputs)
+        $('#id_departamento').on('input', listen_inputs)
+        $('#id_caracter').on('input', listen_inputs)
+        $('#id_obj_general').on('input', listen_inputs)
+        $('#id_obj_particular').on('input', listen_inputs)
+        $('#id_contenido_sintetico').on('input', listen_inputs)
+        $('#id_estilo_enseñanza').on('input', listen_inputs)
+        $('#id_req_evaluacion').on('input', listen_inputs)
+        $('#id_bibliografia').on('input', listen_inputs)
+        $('#id_perfil_academico').on('input', listen_inputs)
+        $('#id_utilidad_programa').on('input', listen_inputs)
+        $('#id_experiencia').on('input', listen_inputs)
+        $('#id_hab_alumnos').on('input', listen_inputs)
+        $('#id_idioma').on('input', listen_inputs)
+        $('#id_infraestructura').on('input', listen_inputs)
+        $('#id_cargo_instructor').on('input', listen_inputs)
+        $('#id_dependencia').on('input', listen_inputs)
+        $('#id_telefono').on('input', listen_inputs)
+        $('#id_correo').on('input', listen_inputs)
     })
 </script>
 
