@@ -35,6 +35,7 @@ class Curso(models.Model):
     estado = models.SmallIntegerField(choices=ESTADOS, default=0)
     slug = models.SlugField(null=True, blank=True, default="")
 
+
     def __str__(self):
         return self.nombre
 
@@ -56,3 +57,4 @@ def create_slug(sender, instance, **kwargs):
 class Inscripcion(models.Model):
     alumno = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    pdf = models.FileField(upload_to='media/constancias', null=True, blank=True)

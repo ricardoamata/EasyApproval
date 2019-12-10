@@ -5,7 +5,7 @@
     <p><b>Instructor:</b> {{ curso.instructor }}</p>
     <p><b>Duración:</b> {{ curso.duracion }} hrs</p>
     <p><b>Incio:</b> {{ curso.fecha_inicial }}<br>
-    <p><b>Finalliza:</b> {{ curso.fecha_final }}</p>
+    <p><b>Finaliza:</b> {{ curso.fecha_final }}</p>
     <p><b>Descripción:</b></p> <p>{{ curso.descripcion }}</p>
     <p><b>Aula:</b> {{ curso.aula }}<p>
     <p><b>Costo:</b> {{ curso.costo }}</p>
@@ -42,6 +42,17 @@
                 </form>
             {% endif %}
         {% endif %}
+        
+    
+    <br>
+
+    <form action="{% url 'curso:generar' curso.slug %}" method="GET">
+        {% csrf_token %}
+        <input type="submit" class="uk-button uk-button-primary" value="Generar const">
+    </form>
+    
+        
+
     <div class="uk-margin-medium-top">
         <a class="uk-link-text" href="{% url 'curso:lista' %}">volver a la lista de cursos</a>
     </div>

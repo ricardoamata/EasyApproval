@@ -4,6 +4,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+import io
+from django.core.files import File
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from django.core.files.base import ContentFile
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -142,3 +147,30 @@ def desinscribir(request, slug):
         return redirect('/curso/ver_curso/'+slug)
     
     return render(request, 'curso/desinscribir.html', context={'curso': curso})
+
+def generar(request, slug):
+    curso = Curso.objects.get(slug=slug)
+    inscripcion = Inscripcion.objects.get(pk=1)
+
+    nombre =  "constancia " + curso.slug
+    #for inscripcion in Inscripcion.filter(curso=curso):
+     #   alumnos = inscripcion.alumno
+    # Create a file-like buffer to receive PDF data.
+    buffer = io.BytesIO()
+    # Create the PDF object, using the buffer as its "file."
+    p = canvas.Canvas(buffer)
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    string = nombre + " para " + str(inscripcion.alumno)
+    p.drawString(50,50,string)
+    #p.drawString(50,60,instructor)
+    #p.drawString(60,70,fecha)
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file.
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename=nombre)
+
+
