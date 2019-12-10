@@ -24,7 +24,8 @@
         {% endif %}
     {% endif %}
 
-    <p><b>Cupo:</b> {{ curso.cupo }}</p>
+    <p><b>Cupo Mínimo:</b> {{ curso.cupo_min }}</p>
+    <p><b>Cupo Máximo:</b> {{ curso.cupo_max }}</p>
         {% if curso.inscripcion_set.count == curso.cupo %}
             <button class="uk-button uk-button-default" disabled>Inscribirse al curso</button>
         {% else %}

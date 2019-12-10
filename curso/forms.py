@@ -21,6 +21,15 @@ class CursoForm(forms.ModelForm):
             self.fields[key].widget.attrs['class'] = (
                 'uk-select' if key == 'instructor' 
                 else 'uk-textarea' if key == 'descripcion' 
+                else 'uk-textarea' if key == 'obj_general' 
+                else 'uk-textarea' if key == 'obj_particular'
+                else 'uk-textarea' if key == 'contenido_sintetico' 
+                else 'uk-textarea' if key == 'estilo_enseñanza' 
+                else 'uk-textarea' if key == 'req_evaluacion'
+                else 'uk-textarea' if key == 'bibliografia' 
+                else 'uk-textarea' if key == 'experiencia' 
+                else 'uk-textarea' if key == 'hab_alumnos'
+                
                 else 'uk-input'
             )
 
