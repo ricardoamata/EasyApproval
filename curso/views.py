@@ -168,6 +168,7 @@ def generar(request, slug):
     # Close the PDF object cleanly, and we're done.
     p.showPage()
     p.save()
+    inscripcion.pdf.save(nombre,File(buffer))
     # FileResponse sets the Content-Disposition header so that browsers
     # present the option to save the file.
     buffer.seek(0)
