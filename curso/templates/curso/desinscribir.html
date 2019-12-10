@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <span class="uk-text-large">¿Estas seguro que quieres desinscribirte del curso <b>{{ curso }}</b>?</span>
+    <form action="{% url 'curso:desinscribir' curso.slug %}" method="POST" class="uk-form-stacked">
+        {% csrf_token %}
+        <div class="uk-margin">
+            <label for="confirmacion" class="uk-form-label">Escriba <b>acepto</b> para confirmar:</label>
+            <div class="uk-width-1-2">
+                <input class="uk-input" type="text" name="confirmacion" id="confirmacion" oninput="read_confirmation()">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <input type="submit" value="Confirmar" id="confirm_button" class="uk-button uk-button-disabled" disabled>
+            <a class="uk-button uk-button-default uk-margin-small-left" href="{% url 'curso:detalle' curso.slug %}">Cancelar</a>
+        </div>
+    </form>
+
+    <script>
+        function read_confirmation() {
+            var confirmacion = document.getElementById("confirmacion").value
+            var button = document.getElementById("confirm_button")
+            if(confirmacion == "acepto" && button.disabled == true) {
+                button.disabled = false
+                button.classList.remove("uk-button-disabled")
+                button.classList.add("uk-button-danger")
+            }
+            else if(button.disabled == false) {
+               button.disabled = true
+               button.classList.remove("uk-button-danger")
+               button.classList.add("uk-button-disabled")
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    {% if exception %}
+        <span class="uk-text-large">{{ exception }}</span>
+    {% else %}
+        <span class="uk-text-large">No tienes permiso par hacer realizar esta acción</span>
+    {% endif %}
+    <div class="uk-margin-medium-top">
+        <a class="uk-link-text" href="{% url 'curso:lista' %}">volver a la lista de cursos</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <ul class="uk-list">
+        {% for curso in cursos %}
+            {% if curso.estado > 1 %}
+                <li>
+                    <h4 class="uk-link-heading uk-card-title uk-margin-small-bottom"><a href="{% url 'curso:por_aprobar' curso.hash_id %}">{{ curso }}</a></h4>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

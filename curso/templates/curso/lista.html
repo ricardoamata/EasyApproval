@@ -1,0 +1,33 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <ul class="uk-list">
+        {% for curso in cursos %}
+            {% if curso.estado > 1 %}
+                <li>
+                    <div class="uk-card uk-card-body uk-card-default uk-link-toggle uk-card-small">
+                        <h4 class="uk-link-heading uk-card-title uk-margin-small-bottom"><a href="{% url 'curso:detalle' curso.slug %}">{{ curso }}</a></h4>
+                        {% if curso.inscripcion_set.count == curso.cupo %}
+                            <span class="uk-label uk-label-danger">Lleno</span>
+                        {% else %}
+                            {% if curso.estado == 2 %}
+                                <span class="uk-label uk-label-success">Abierto</span>
+                            {% elif curso.estado == 3 %}
+                                <span class="uk-label">{{curso.get_estado }}</span>
+                            {% elif curso.estado == 4 %}
+                                <span class="uk-label uk-label-warning">{{curso.get_estado }}</span>
+                            {% endif %}
+                        {% endif %}
+                        <br>
+                        <span class="uk-text-small">
+                            <b>Instructor:</b> <a class="uk-link-text" href="#">{{ curso.instructor }}</a>
+                            <b class="uk-margin-small-left">Comienza en:</b> {{ curso.fecha_inicial }}
+                            <b class="uk-margin-small-left">Termina en:</b> {{ curso.fecha_final }}
+                        </span>
+                        <p class="uk-text-truncate">{{ curso.descripcion }}</p>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}
