@@ -11,6 +11,7 @@ urlpatterns = [
     path('ver_borrador/<uuid:id>', views.DraftView.as_view(), name='editar'),
     path('eliminar_borrador/<uuid:id>', views.EliminacionCurso.as_view(), name='eliminar'), 
     path('inscribirse/<slug:slug>', views.inscribir, name='inscribir'),
+    path('generar/<slug:slug>', views.generar, name='generar'),
     path('desinscribirse/<slug:slug>', views.desinscribir, name='desinscribir'),
     path('solicitar_aprobacion/<uuid:id>', views.solicitar_aprobacion, name='solicitar_aprobacion'),
 ]

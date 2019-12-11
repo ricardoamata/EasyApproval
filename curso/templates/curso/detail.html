@@ -48,6 +48,17 @@
                 </form>
             {% endif %}
         {% endif %}
+        
+    
+    <br>
+
+    <form action="{% url 'curso:generar' curso.slug %}" method="GET">
+        {% csrf_token %}
+        <input type="submit" class="uk-button uk-button-primary" value="Generar const">
+    </form>
+    
+        
+
     <div class="uk-margin-medium-top">
         <a class="uk-link-text" href="{% url 'curso:lista' %}">volver a la lista de cursos</a>
     </div>
