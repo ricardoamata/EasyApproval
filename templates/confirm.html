@@ -1,0 +1,13 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <span class="uk-text-large">{{ msg }}</span>
+    <form  method="POST" class="uk-form-stacked">
+        {% csrf_token %}
+        <div class="uk-margin">
+        <div class="uk-margin">
+            <input type="submit" value="Confirmar" id="confirm_button" class="uk-button uk-button-primary">
+            <a class="uk-button uk-button-default uk-margin-small-left" href="{{ cancel_link }}">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}
