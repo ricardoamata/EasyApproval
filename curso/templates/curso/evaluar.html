@@ -1,0 +1,233 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <ul class="uk-list uk-list-divider">
+        <meta charset="UTF-8">
+        <form id="evaluacion" method="post" class="uk-grid-small uk-grid">
+            {% csrf_token %}
+            <div class="uk-margin">
+                <h3>Evaluando el curso: {{ curso.nombre }}</h3>
+                <h5>Seleccione sólo una de las opciones de la derecha</h5>
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>El curso</th>
+                            <th>Excelente</th>
+                            <th>Bueno</th>
+                            <th>Regular</th>
+                            <th>Malo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="uk-text-nowrap">De acuerdo a sus expectativas</td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC1" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC1" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC1" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC1" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">La pertinencia de los contenidos fue</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC2" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC2" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC2" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC2" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">Los tópicos tratados</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC3" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC3" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC3" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC3" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">Los tiempos de presentación</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC4" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC4" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC4" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC4" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">El logro de los objetivos planteados fue</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC5" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC5" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC5" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC5" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">Los materiales de apoyo fueron</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC6" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC6" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC6" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC6" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">La aplicación de los conocimientos adquirido es</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC7" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC7" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC7" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC7" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">Los medios tecnológicos usados fueron</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC8" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC8" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC8" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC8" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">La cantidad de información fue</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC9" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC9" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC9" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC9" value="0"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="uk-text-nowrap">En general el programa fue</td>
+                            <td align="center"  style="vertical-align:middle" required><input type="radio" class="curso" name="EC10" value="10"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC10" value="6"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC10" value="2"><br></td>
+                            <td align="center"  style="vertical-align:middle"><input type="radio" class="curso" name="EC10" value="0"><br></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <textarea class="uk-textarea" rows="5" id="sugerenciaCurso" name="sugerenciaCurso" placeholder="Sugerencias para mejorar (opcional)"></textarea>
+                <br><br>
+                <hr class="uk-divider-icon">
+            </div>
+            <div class="uk-margin">
+                <h3>Evaluando al instructor del curso</h3>
+                <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>El instructor</th>
+                        <th>Excelente</th>
+                        <th>Bueno</th>
+                        <th>Regular</th>
+                        <th>Malo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="uk-text-nowrap">Dominio del tema</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI1" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI1" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI1" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI1" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">Presentación de conceptos</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI2" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI2" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI2" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI2" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">Interacción y motivación</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI3" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI3" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI3" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI3" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">Uso de recursos didácticos y tecnológicos</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI4" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI4" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI4" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI4" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">Comunicación con el grupo</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI5" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI5" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI5" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI5" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">Tutoría</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI6" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI6" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI6" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI6" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td>La extensión de la información (otras fuentes: libros, www, revistas, etc.)</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI7" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI7" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI7" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI7" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">Estrategias para facilitar el aprendizaje</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI8" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI8" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI8" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI8" value="0"><br></td>
+                    </tr>
+                    <tr>
+                        <td class="uk-text-nowrap">En general el desempeño del instructor fue</td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI9" value="10"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI9" value="6"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI9" value="2"><br></td>
+                        <td align="center"  style="vertical-align:middle"><input type="radio" class="instructor" name="EI9" value="0"><br></td>
+                    </tr>
+                </tbody>
+            </table>
+                <textarea class="uk-textarea" rows="5" id="sugerenciaInstructor" name="sugerenciaInstructor" placeholder="Sugerencias para mejorar (opcional)"></textarea>
+            </div>
+
+            <input type="hidden" name="evalCurso" id="evalCurso" min="0" max="100">
+            <input type="hidden" name="evalInstructor" id="evalInstructor" min="0" max="100">
+            <input type="button" onclick="definirCalificaciones(this)" class="uk-button uk-button-primary" value="Terminar evaluación">
+        </form>
+    </ul>
+
+
+
+
+<script type="text/javascript">
+    function evaluacionCurso() {
+        var evaluacionCurso = 0;
+        var curso = document.getElementsByClassName("curso");
+        for (var i = 0, length = curso.length; i < length; i++)
+            if (curso[i].checked) evaluacionCurso += parseInt(curso[i].value);
+        return(evaluacionCurso);
+    }
+
+    function evaluacionInstructor() {
+        var evaluacionInstructor = 0;
+        var instructor = document.getElementsByClassName("instructor");
+        for (var i = 0, length = instructor.length; i < length; i++)
+            if (instructor[i].checked) evaluacionInstructor += parseInt(instructor[i].value);
+        return(evaluacionInstructor);
+    }
+
+    function definirCalificaciones(event){
+        var cursosNombres = ["EC1","EC2","EC3","EC4","EC5","EC6","EC7","EC8","EC9","EC10"]
+        for(var i = 0; i < cursosNombres.length; i++){
+            var curso = document.getElementsByName(cursosNombres[i]);
+            if(!curso[0].checked && !curso[1].checked && !curso[2].checked && !curso[3].checked){
+                alert("Favor de evaluar todos los puntos.");
+                event.preventDefault();
+            }
+        }
+        var instructorNombres = ["EI1","EI2","EI3","EI4","EI5","EI6","EI7","EI8","EI9"]
+        for(var i = 0; i < instructorNombres.length; i++){
+            var instructor = document.getElementsByName(instructorNombres[i]);
+            if(!instructor[0].checked && !instructor[1].checked && !instructor[2].checked && !instructor[3].checked){
+                alert("Favor de evaluar todos los puntos.");
+                event.preventDefault();
+            }
+        }
+        var calificacionInstructor;
+        var calificacionCurso;
+        calificacionInstructor = evaluacionInstructor();
+        calificacionCurso = evaluacionCurso();
+        $("#evalCurso").val(calificacionCurso);
+        $("#evalInstructor").val(calificacionInstructor);
+        $("#sugerenciaCurso").val(document.getElementById("sugerenciaCurso").value);
+        $("#sugerenciaInstructor").val(document.getElementById("sugerenciaInstructor").value);
+        $("#evaluacion").submit();
+    }
+</script>
+{% endblock %}

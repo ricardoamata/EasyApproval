@@ -41,6 +41,16 @@
                     {% csrf_token %}
                     <input type="submit" class="uk-button uk-button-primary" value="Desinscribirse">
                 </form>
+                <br>
+                <form action="{% url 'curso:evaluar' curso.slug %}">
+                    {% csrf_token %}
+                    <input type="submit" class="uk-button uk-button-primary" value="Evaluar Curso">
+                </form>
+                <br>
+                <form action="{% url 'curso:generar' curso.slug %}" method="GET">
+                    {% csrf_token %}
+                    <input type="submit" class="uk-button uk-button-primary" value="Generar const">
+                </form>
             {% else %}
                 <form action="{% url 'curso:inscribir' curso.slug %}" method="GET">
                     {% csrf_token %}
@@ -51,13 +61,6 @@
         
     
     <br>
-
-    <form action="{% url 'curso:generar' curso.slug %}" method="GET">
-        {% csrf_token %}
-        <input type="submit" class="uk-button uk-button-primary" value="Generar const">
-    </form>
-    
-        
 
     <div class="uk-margin-medium-top">
         <a class="uk-link-text" href="{% url 'curso:lista' %}">volver a la lista de cursos</a>
