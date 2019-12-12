@@ -80,3 +80,7 @@ class Inscripcion(models.Model):
     alumno = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     pdf = models.FileField(upload_to='constancias/', null=True, blank=True)
+    calificacionCurso = models.IntegerField(null=True, blank=True)
+    sugerenciaCurso = models.TextField(null=True, blank=True)
+    calificacionInstructor = models.IntegerField(null=True, blank=True)
+    sugerenciaInstructor = models.TextField(null=True, blank=True)

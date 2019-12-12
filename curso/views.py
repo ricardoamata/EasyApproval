@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+from django.contrib import messages
 import io
 from django.core.files import File
 from django.http import FileResponse
@@ -179,3 +180,17 @@ def generar(request, slug):
 def ver_constancia(request):
 
     pass
+
+def evaluar(request, slug):
+    curso = Curso.objects.get(slug=slug)
+    if request.method == "POST":
+        inscripcion = Inscripcion.objects.get(curso = curso, alumno = request.user)
+        inscripcion.calificacionCurso = request.POST["evalCurso"]
+        inscripcion.calificacionInstructor = request.POST["evalInstructor"]
+        inscripcion.sugerenciaCurso = request.POST["sugerenciaCurso"]
+        inscripcion.sugerenciaInstructor = request.POST["sugerenciaInstructor"]
+        inscripcion.save()
+        messages.success(request, 'Información guardada correctamente.')
+        return redirect('/curso/ver_curso/' + slug)
+
+    return render(request, 'curso/evaluar.html', context={'curso': curso})
