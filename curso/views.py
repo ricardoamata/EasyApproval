@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+from django.contrib import messages
 import io
 from django.core.files import File
 from django.http import FileResponse
@@ -122,7 +123,7 @@ def inscribir(request, slug):
         inscripcion = Inscripcion(curso=curso, alumno=request.user)
         inscripcion.save()
         return redirect('/curso/ver_curso/'+slug)
-    
+
     return render(request, 'curso/inscripcion.html', context={'curso': curso})
 
 def solicitar_aprobacion(request, id):
@@ -131,7 +132,7 @@ def solicitar_aprobacion(request, id):
         raise PermissionDenied("Este curso ya ha sido aprovado o ya se ha solicitado una aprobación")
     if request.user != curso.owner and request.user.profile != curso.instructor and not request.user.is_superuser:
         raise PermissionDenied("No tienes derechos para solicitar una aprobación para este curso")
-    
+
     if request.method == 'POST':
         curso.estado = 1
         curso.save()
@@ -146,12 +147,12 @@ def desinscribir(request, slug):
         inscripcion = curso.inscripcion_set.get(alumno=request.user)
         inscripcion.delete()
         return redirect('/curso/ver_curso/'+slug)
-    
+
     return render(request, 'curso/desinscribir.html', context={'curso': curso})
 
 def generar(request, slug):
     curso = Curso.objects.get(slug=slug)
-    inscripcion = Inscripcion.objects.get(pk=1)
+    inscripcion = Inscripcion.objects.get()
 
     nombre =  "constancia " + curso.slug
     #for inscripcion in Inscripcion.filter(curso=curso):
@@ -162,7 +163,7 @@ def generar(request, slug):
     p = canvas.Canvas(buffer)
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    string = nombre + " para " + str(inscripcion.alumno)
+    string = nombre + " para " + str(inscripcion.alumno) + ".pdf"
     p.drawString(50,50,string)
     #p.drawString(50,60,instructor)
     #p.drawString(60,70,fecha)
@@ -176,3 +177,20 @@ def generar(request, slug):
     return FileResponse(buffer, as_attachment=True, filename=nombre)
 
 
+def ver_constancia(request):
+
+    pass
+
+def evaluar(request, slug):
+    curso = Curso.objects.get(slug=slug)
+    if request.method == "POST":
+        inscripcion = Inscripcion.objects.get(curso = curso, alumno = request.user)
+        inscripcion.calificacionCurso = request.POST["evalCurso"]
+        inscripcion.calificacionInstructor = request.POST["evalInstructor"]
+        inscripcion.sugerenciaCurso = request.POST["sugerenciaCurso"]
+        inscripcion.sugerenciaInstructor = request.POST["sugerenciaInstructor"]
+        inscripcion.save()
+        messages.success(request, 'Información guardada correctamente.')
+        return redirect('/curso/ver_curso/' + slug)
+
+    return render(request, 'curso/evaluar.html', context={'curso': curso})
