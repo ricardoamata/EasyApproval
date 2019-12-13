@@ -18,6 +18,9 @@ class CursoForm(forms.ModelForm):
         super(CursoForm, self).__init__(*args, **kwargs)
         self.fields['fecha_inicial'].required = False
         self.fields['fecha_final'].required = False
+        self.fields['departamento'].required = False
+        self.fields['division'].required = False
+        self.fields['caracter'].required = False
         for key in self.fields:
             self.fields[key].widget.attrs['class'] = (
                 'uk-select' if key == 'instructor' 

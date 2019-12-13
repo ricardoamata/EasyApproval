@@ -56,7 +56,7 @@ class CursoView(DetailView):
             curso = self.get_object()
             inscrito = Inscripcion.objects.filter(curso=curso, alumno=self.request.user).exists()
             context['inscrito'] = inscrito
-            context['cupos_disponibles']=  curso.cupo_max - curso.inscripcion_set.count()
+            context['cupos_disponibles'] =  curso.cupo_max - curso.inscripcion_set.count()
         return context
 
 class CreacionCurso(LoginRequiredMixin,
