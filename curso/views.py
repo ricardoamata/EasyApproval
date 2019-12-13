@@ -8,6 +8,7 @@ import io
 from django.core.files import File
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter, A4
 from django.core.files.base import ContentFile
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -56,7 +57,7 @@ class CursoView(DetailView):
             curso = self.get_object()
             inscrito = Inscripcion.objects.filter(curso=curso, alumno=self.request.user).exists()
             context['inscrito'] = inscrito
-            context['cupos_disponibles']=  curso.cupo_max - curso.inscripcion_set.count()
+            #context['cupos_disponibles']=  curso.cupo_max - curso.inscripcion_set.count()
         return context
 
 class CreacionCurso(LoginRequiredMixin,
@@ -150,29 +151,48 @@ def desinscribir(request, slug):
     return render(request, 'curso/desinscribir.html', context={'curso': curso})
 
 def generar(request, slug):
+    mitad_x = A4[0] / 2
+    max_x, max_y = A4
     curso = Curso.objects.get(slug=slug)
     inscripcion = Inscripcion.objects.get(pk=1)
 
-    nombre =  "constancia " + curso.slug
+    a = str(inscripcion.alumno)
+    c1 = curso.slug
+    #nombre =  "constancia " + curso.slug
     #for inscripcion in Inscripcion.filter(curso=curso):
      #   alumnos = inscripcion.alumno
     # Create a file-like buffer to receive PDF data.
     buffer = io.BytesIO()
     # Create the PDF object, using the buffer as its "file."
-    p = canvas.Canvas(buffer)
+    c = canvas.Canvas(buffer)
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    string = nombre + " para " + str(inscripcion.alumno)
-    p.drawString(50,50,string)
+    #string = nombre + " para " + str(inscripcion.alumno)
+    #p.drawString(50,50,string)
     #p.drawString(50,60,instructor)
     #p.drawString(60,70,fecha)
     # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
-    inscripcion.pdf.save(nombre,File(buffer))
+    c.setFont("Helvetica", 15)
+
+    c.drawCentredString(mitad_x, max_y - 100,"UNIVERSIDAD DE SONORA")
+    c.drawCentredString(mitad_x, max_y - 130,"DIVISIÓN DE CIENCIAS EXACTAS Y NATURALES")
+    c.drawCentredString(mitad_x, max_y - 160,"DEPARTAMENTO DE MATEMÁTICAS")
+    c.drawCentredString(mitad_x, max_y - 220,"OTORGAN LA PRESENTE")
+
+    c.setFont("Helvetica-Bold", 30)
+    c.drawCentredString(mitad_x, max_y - 270,"CONSTANCIA")
+    c.setFont("Helvetica", 15)
+    c.drawCentredString(mitad_x, max_y - 300,"A: ")
+    c.drawCentredString(mitad_x, max_y - 330,a)
+    c.drawCentredString(mitad_x, max_y - 360,"POR ASISTIR AL CURSO: ")
+    c.setFont("Helvetica-Bold", 15)
+    c.drawCentredString(mitad_x, max_y - 390,curso.slug)
+    c.showPage()
+    c.save()
+    inscripcion.pdf.save(curso.slug,File(buffer))
     # FileResponse sets the Content-Disposition header so that browsers
     # present the option to save the file.
     buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename=nombre)
+    return FileResponse(buffer, as_attachment=True, filename=curso.slug)
 
 
