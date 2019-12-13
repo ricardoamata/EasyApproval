@@ -29,8 +29,10 @@
             <p><b>Estado:</b>  <span class="uk-label uk-label-warning">{{curso.get_estado }}</span></p>
         {% endif %}
     {% endif %}
-        
-    <p><b>Cupos disponibles:</b> {{ cupos_disponibles}}</p>
+    
+    {% if cupos_disponibles %}
+        <p><b>Cupos disponibles:</b> {{ cupos_disponibles}}</p>
+    {% endif %}
         {% if curso.inscripcion_set.count == curso.cupo %}
             <button class="uk-button uk-button-default" disabled>Inscribirse al curso</button>
         {% else %}
@@ -41,21 +43,26 @@
                     {% csrf_token %}
                     <input type="submit" class="uk-button uk-button-primary" value="Desinscribirse">
                 </form>
-                <br>
-                <form action="{% url 'curso:evaluar' curso.slug %}">
-                    {% csrf_token %}
-                    <input type="submit" class="uk-button uk-button-primary" value="Evaluar Curso">
-                </form>
-                <br>
-                <form action="{% url 'curso:generar' curso.slug %}" method="GET">
-                    {% csrf_token %}
-                    <input type="submit" class="uk-button uk-button-primary" value="Generar const">
-                </form>
+                {% if not evaluado_por_alumno %}
+                    <br>
+                    <form action="{% url 'curso:evaluar' curso.slug %}">
+                        {% csrf_token %}
+                        <input type="submit" class="uk-button uk-button-default" value="Evaluar Curso">
+                    </form>
+                {% endif %}
             {% else %}
                 <form action="{% url 'curso:inscribir' curso.slug %}" method="GET">
                     {% csrf_token %}
                     <input type="submit" class="uk-button uk-button-primary" value="Inscribirse">
                 </form>
+            {% endif %}
+            {% if request.user == curso.owner or request.user.is_superuser %}
+                <br>
+                <form action="{% url 'curso:generar' curso.slug %}" method="GET">
+                    {% csrf_token %}
+                    <input type="submit" class="uk-button uk-button-default" value="Generar constancias">
+                </form>
+                <br>
             {% endif %}
         {% endif %}
         

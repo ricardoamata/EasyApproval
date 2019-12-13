@@ -12,6 +12,7 @@ from reportlab.pdfgen import canvas
 from django.core.files.base import ContentFile
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from datetime import date
 
 from .models import Curso, Inscripcion
 from .forms import CursoForm
@@ -57,7 +58,12 @@ class CursoView(DetailView):
             curso = self.get_object()
             inscrito = Inscripcion.objects.filter(curso=curso, alumno=self.request.user).exists()
             context['inscrito'] = inscrito
-            context['cupos_disponibles'] =  curso.cupo_max - curso.inscripcion_set.count()
+            if inscrito:
+                inscripcion = Inscripcion.objects.get(curso=curso, alumno=self.request.user)
+                if inscripcion.calificacionCurso or inscripcion.calificacionInstructor:
+                    context['evaluado_por_alumno'] = True
+            if curso.cupo_max:
+                context['cupos_disponibles'] =  curso.cupo_max - curso.inscripcion_set.count()
         return context
 
 class CreacionCurso(LoginRequiredMixin,
@@ -170,7 +176,7 @@ def generar(request, slug):
     # Close the PDF object cleanly, and we're done.
     p.showPage()
     p.save()
-    inscripcion.pdf.save(nombre,File(buffer))
+    inscripcion.pdf.save(nombre, File(buffer))
     # FileResponse sets the Content-Disposition header so that browsers
     # present the option to save the file.
     buffer.seek(0)
@@ -183,8 +189,12 @@ def ver_constancia(request):
 
 def evaluar(request, slug):
     curso = Curso.objects.get(slug=slug)
+    inscripcion = Inscripcion.objects.get(curso=curso, alumno=request.user)
+    #if date.today() < inscripcion.curso.fecha_final:
+    #    raise PermissionDenied("Aun no puedes evaluar este curso")
+    if inscripcion.calificacionCurso or inscripcion.calificacionInstructor:
+        raise PermissionDenied("Ya has evaluado este curso, no puedes evaluarlo nuevamente")
     if request.method == "POST":
-        inscripcion = Inscripcion.objects.get(curso = curso, alumno = request.user)
         inscripcion.calificacionCurso = request.POST["evalCurso"]
         inscripcion.calificacionInstructor = request.POST["evalInstructor"]
         inscripcion.sugerenciaCurso = request.POST["sugerenciaCurso"]

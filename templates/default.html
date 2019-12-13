@@ -115,10 +115,10 @@
 									{% endfor %}
 								</ul>
 							</li>
-							<li class="uk-parent"><a href="#"><span data-uk-icon="icon: folder" class="uk-margin-small-right"></span>Constancias</a>
+							<li class="uk-parent"><a href="#"><span data-uk-icon="icon: folder" class="uk-margin-small-right"></span>Mis constancias</a>
 								<ul class="uk-nav-sub">
 									{% for inscripcion in request.user.inscripcion_set.all %}
-										<li><a target="_blank" href="{{ inscripcion.pdf }}"> {{ inscripcion.pdf }} </a></li>
+										<li><a target="_blank" href="{{ inscripcion.pdf }}"> {{ inscripcion.curso }} </a></li>
 									{% endfor %}
 								</ul>
 							</li>

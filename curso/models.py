@@ -84,3 +84,4 @@ class Inscripcion(models.Model):
     sugerenciaCurso = models.TextField(null=True, blank=True)
     calificacionInstructor = models.IntegerField(null=True, blank=True)
     sugerenciaInstructor = models.TextField(null=True, blank=True)
+    calficacion_curso = models.PositiveSmallIntegerField(null=True, blank=True)
